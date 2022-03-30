@@ -23,4 +23,6 @@ print(aCell)
 print('\n---------------------------\n')
 print(cellContent)
 
+resultPath = './results/'
 
+shutil.copyfile('./toThatTemplate.xlsx',resultPath+'eureka.xlsx')
