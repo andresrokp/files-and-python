@@ -1,4 +1,3 @@
-import shutil
 import openpyxl
 
 print('-\n---\n-----\n-------\n-----\n---\n-')
@@ -8,7 +7,7 @@ originFile = openpyxl.load_workbook(originFileName)
 originSheet = originFile['Solicitudes']
 outSheetName = 'MNN-REG-014'
 
-for row in range(2118,2120 + 1):
+for row in range(2118,2132 + 1):
     
     # getting values from origin file
     otDate = str(originSheet[f'B{row}'].value).split(' ')[0]
@@ -24,9 +23,20 @@ for row in range(2118,2120 + 1):
 
     # out file creatinon and loading
     outFileName = f'OT {otNumber}.xlsx'
-    # shutil.copyfile('OT 0000.xlsx',outFileName)
     outFile = openpyxl.load_workbook('OT 0000.xlsx')
     outSheet = outFile[outSheetName]
+
+    # output workbook writing
     outSheet['G6'] = otNumber
+    outSheet['G7'] = "IVÁN DE ALBA" if otEng == 'MEC' else 'JORGE MOLINA'
+    outSheet['H10'] = otDate
+    outSheet['T10'] = otDate
+    if otType == 'PREV': outSheet['N14'] = 'x'
+    if otType == 'CORR': outSheet['AB14'] = 'x'
+    if otType == 'MEJ': outSheet['AI14'] = 'x'
+    outSheet['F16'] = otPlace
+    outSheet['F17'] = otDevice
+    outSheet['A19'] = otDetail
+    
     outFile.save(filename=outFileName)
 
