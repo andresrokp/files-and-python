@@ -22,4 +22,11 @@ for row in range(2118,2120 + 1):
     print(f'{otDate}\n{otEng}\n{otType}\n{otDetail}\n{otNumber}\n{otPlace}\n{otDevice}')
     print('-')
 
-# originFile.save(filename=outFileName)
+    # out file creatinon and loading
+    outFileName = f'OT {otNumber}.xlsx'
+    # shutil.copyfile('OT 0000.xlsx',outFileName)
+    outFile = openpyxl.load_workbook('OT 0000.xlsx')
+    outSheet = outFile[outSheetName]
+    outSheet['G6'] = otNumber
+    outFile.save(filename=outFileName)
+
