@@ -7,16 +7,18 @@ originFile = openpyxl.load_workbook(originFileName)
 originSheet = originFile['Solicitudes']
 outSheetName = 'MNN-REG-014'
 
-for row in range(2118,2132 + 1):
+for row in range(2024,2083 + 1):
     
     # getting values from origin file
-    otDate = str(originSheet[f'B{row}'].value).split(' ')[0]
-    otEng = str(originSheet[f'C{row}'].value)
-    otType = str(originSheet[f'D{row}'].value)
+    otSolNum = str(originSheet[f'A{row}'].value)
+    date = originSheet[f'B{row}'].value
+    otDate = f'{date.day}/{date.month}/{date.year}'
+    otEng = str(originSheet[f'I{row}'].value)
+    otType = str(originSheet[f'J{row}'].value)
     otDetail = str(originSheet[f'E{row}'].value)
-    otNumber = str(int(originSheet[f'J{row}'].value))
-    otPlace = str(originSheet[f'K{row}'].value)
-    otDevice = str(originSheet[f'L{row}'].value)
+    otNumber = str(int(originSheet[f'L{row}'].value))
+    otPlace = str(originSheet[f'G{row}'].value)
+    otDevice = str(originSheet[f'H{row}'].value)
 
     print(f'{otDate}\n{otEng}\n{otType}\n{otDetail}\n{otNumber}\n{otPlace}\n{otDevice}')
     print('-')
@@ -28,12 +30,13 @@ for row in range(2118,2132 + 1):
 
     # output workbook writing
     outSheet['G6'] = otNumber
-    outSheet['G7'] = "IVÁN DE ALBA" if otEng == 'MEC' else 'JORGE MOLINA'
+    outSheet['R6'] = otSolNum
+    outSheet['G7'] = "IVÁN DE ALBA" if otEng == 'MECANICA' else 'JORGE MOLINA'
     outSheet['H10'] = otDate
     outSheet['T10'] = otDate
-    if otType == 'PREV': outSheet['N14'] = 'x'
-    if otType == 'CORR': outSheet['AB14'] = 'x'
-    if otType == 'MEJ': outSheet['AI14'] = 'x'
+    if otType == 'PREVENTIVO': outSheet['N14'] = 'x'
+    if otType == 'CORRECTIVO': outSheet['AB14'] = 'x'
+    if otType == 'MEJORA': outSheet['AI14'] = 'x'
     outSheet['F16'] = otPlace
     outSheet['F17'] = otDevice
     outSheet['A19'] = otDetail
