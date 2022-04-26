@@ -1,13 +1,17 @@
 import openpyxl
+import sys
+
+beginRow = int(sys.argv[1])
+endRow = int(sys.argv[2])
 
 print('-\n---\n-----\n-------\n-----\n---\n-')
 
-originFileName = 'del drive - MNN-REG-046 Solicitudes de Mantenimiento.xlsx'
+originFileName = 'MNN-REG-046 Solicitudes de Mantenimiento.xlsx'
 originFile = openpyxl.load_workbook(originFileName)
 originSheet = originFile['Solicitudes']
 outSheetName = 'MNN-REG-014'
 
-for row in range(2024,2083 + 1):
+for row in range(beginRow,endRow + 1):
     
     # getting values from origin file
     otSolNum = str(originSheet[f'A{row}'].value)
