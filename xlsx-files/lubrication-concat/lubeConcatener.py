@@ -10,7 +10,7 @@ inputSheetName = 'PREVENTIVO_LUBRICACIÓN'
 outSheetName = 'AMxEQ'
 
 inputSheetBeginRow = 12
-inputSheetEndRow = 22
+inputSheetEndRow = 207
 outSheetBeginRow = 4
 
 originFile = openpyxl.load_workbook(dataFileName)
