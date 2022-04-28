@@ -10,7 +10,7 @@ inputSheetName = 'PREVENTIVO_LUBRICACIÓN'
 outSheetName = 'AMxEQ'
 
 inputSheetBeginRow = 12
-inputSheetEndRow = 14
+inputSheetEndRow = 22
 outSheetBeginRow = 4
 
 originFile = openpyxl.load_workbook(dataFileName)
@@ -21,11 +21,23 @@ for row in range(inputSheetBeginRow,inputSheetEndRow + 1):
     # getting values from origin file
     sistema = str(originSheet[f'C{row}'].value)
     equipo = str(originSheet[f'E{row}'].value)
+    lubricante = str(originSheet[f'G{row}'].value)
     cantPorUnid = str(int(originSheet[f'H{row}'].value))
+    cantTotal = str(int(originSheet[f'I{row}'].value))
+    cantTotalFactor = type(cantTotal) # cantTotal.split('*')[1]
+    tarea = str(originSheet[f'J{row}'].value)
     freqSemanas = str(int(originSheet[f'K{row}'].value))
+    tiempoMinu = str(int(originSheet[f'N{row}'].value))
+    estadoMaq = str(originSheet[f'R{row}'].value)
+    tipoLube = str(originSheet[f'S{row}'].value)
     
+    print(f'{row} :: {sistema}\t{equipo}\t{lubricante}\t{cantPorUnid}\t{cantTotal}\t{tarea}\t{freqSemanas}\t{tiempoMinu}\t{estadoMaq}\t{tipoLube}')
     
-    print(f'{sistema}\t{equipo}\t{cantPorUnid}\t{freqSemanas}')
+    reqOper = 'En Operación' if estadoMaq == 'FUNCIONANDO' else 'Parado por Mantenimiento'
+    unidad = 'gr' if tipoLube == 'GRASA' else 'lt'
+    # numPuntos = cantTotal/cantPorUnid
+    tipoHta = 'Engrasadora' if tipoLube == 'GRASA' else 'Oil safe (Recipiente)'
+
     print('-')
 
     # out file creatinon and loading
