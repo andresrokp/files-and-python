@@ -10,11 +10,12 @@ inputSheetName = 'PREVENTIVO_LUBRICACIÓN'
 outSheetName = 'AMxEQ'
 
 inputSheetBeginRow = 12
-inputSheetEndRow = 207
+inputSheetEndRow = 22
 outSheetBeginRow = 4
 
-originFile = openpyxl.load_workbook(dataFileName)
-originSheet = originFile[inputSheetName]
+dataFile = openpyxl.load_workbook(dataFileName)
+originSheet = dataFile[inputSheetName]
+outSheet = dataFile[outSheetName]
 
 for row in range(inputSheetBeginRow,inputSheetEndRow + 1):
     
@@ -38,7 +39,12 @@ for row in range(inputSheetBeginRow,inputSheetEndRow + 1):
     # numPuntos = cantTotal/cantPorUnid
     tipoHta = 'Engrasadora' if tipoLube == 'GRASA' else 'Oil safe (Recipiente)'
 
+    # writing at outSheet
+    outRow = row - 8;
+    outSheet[f'B{outRow}'] = tarea
     print('-')
+
+dataFile.save(filename='out-'+dataFileName)
 
     # out file creatinon and loading
     # outFileName = f'OT {otNumber}.xlsx'
