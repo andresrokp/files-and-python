@@ -9,8 +9,8 @@ dataFileName = 'lubeDataFile.xlsx'
 inputSheetName = 'PREVENTIVO_LUBRICACIÓN'
 outSheetName = 'AMxEQ'
 
-inputSheetBeginRow = 12
-inputSheetEndRow = 22
+inputSheetBeginRow = 14
+inputSheetEndRow = 24
 outSheetBeginRow = 4
 
 dataFile = openpyxl.load_workbook(dataFileName)
@@ -22,9 +22,10 @@ for row in range(inputSheetBeginRow,inputSheetEndRow + 1):
     # getting values from origin file
     sistema = str(originSheet[f'C{row}'].value)
     equipo = str(originSheet[f'E{row}'].value)
+    posicion = str(originSheet[f'F{row}'].value)
     lubricante = str(originSheet[f'G{row}'].value)
-    cantPorUnid = str(int(originSheet[f'H{row}'].value))
-    cantTotal = str(int(originSheet[f'I{row}'].value))
+    cantPorUnid = str(float(originSheet[f'H{row}'].value))
+    cantTotal = str(float(originSheet[f'I{row}'].value))
     cantTotalFactor = type(cantTotal) # cantTotal.split('*')[1]
     tarea = str(originSheet[f'J{row}'].value)
     freqSemanas = str(int(originSheet[f'K{row}'].value))
@@ -34,14 +35,27 @@ for row in range(inputSheetBeginRow,inputSheetEndRow + 1):
     
     print(f'{row} :: {sistema}\t{equipo}\t{lubricante}\t{cantPorUnid}\t{cantTotal}\t{tarea}\t{freqSemanas}\t{tiempoMinu}\t{estadoMaq}\t{tipoLube}')
     
-    reqOper = 'En Operación' if estadoMaq == 'FUNCIONANDO' else 'Parado por Mantenimiento'
-    unidad = 'gr' if tipoLube == 'GRASA' else 'lt'
-    # numPuntos = cantTotal/cantPorUnid
+    
+    unidadLube = 'gr' if tipoLube == 'GRASA' else 'lt'
+    numPuntos = float(cantTotal)/float(cantPorUnid)
     tipoHta = 'Engrasadora' if tipoLube == 'GRASA' else 'Oil safe (Recipiente)'
+    
+    descripcion = f"""{tarea}
+    Lubricante: {lubricante}
+    Cantidad: {cantPorUnid} {unidadLube} (Por punto)
+    # Puntos: {numPuntos}
+    Herramienta: {tipoHta}
+    """
+
+    nombreEquipo = f'({sistema}) ({equipo}) - ({posicion})'
+    reqOper = 'En Operación' if estadoMaq == 'FUNCIONANDO' else 'Parado por Mantenimiento'
 
     # writing at outSheet
-    outRow = row - 8;
+    outRow = row - 10;
     outSheet[f'B{outRow}'] = tarea
+    outSheet[f'C{outRow}'] = descripcion
+    outSheet[f'E{outRow}'] = nombreEquipo
+
     print('-')
 
 dataFile.save(filename='out-'+dataFileName)
