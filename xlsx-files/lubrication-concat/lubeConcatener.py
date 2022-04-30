@@ -1,11 +1,14 @@
 
 import openpyxl
+import os
 
 print('Hello concatener')
 print('-\n---\n-----\n-------\n-----\n---\n-')
 print('Hello concatener\n')
 
+
 dataFileName = 'lubeDataFile.xlsx'
+if os.path.exists('out-'+dataFileName) : os.remove('out-'+dataFileName)
 inputSheetName = 'PREVENTIVO_LUBRICACIÓN'
 outSheetName = 'AMxEQ'
 
@@ -47,7 +50,7 @@ for row in range(inputSheetBeginRow,inputSheetEndRow + 1):
     Herramienta: {tipoHta}
     """
 
-    nombreEquipo = f'({sistema}) ({equipo}) - ({posicion})'
+    nombreEquipo = f'{equipo} : {posicion} ({sistema})(BOPP)'
     reqOper = 'En Operación' if estadoMaq == 'FUNCIONANDO' else 'Parado por Mantenimiento'
 
     # writing at outSheet
