@@ -1,3 +1,10 @@
+
+# by: andresrokp
+# repo: https://github.com/andresrokp/files-and-python/blob/main/xlsx-files/true-action/otFill.py
+# goal: generate individual forms from a big spreadsheet info to an spacific format
+# lic: an open crap for anyone to use :)
+# gracias
+
 import openpyxl
 import sys
 

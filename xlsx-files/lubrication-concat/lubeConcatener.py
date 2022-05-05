@@ -1,4 +1,10 @@
 
+# by: andresrokp
+# repo: https://github.com/andresrokp/files-and-python/blob/main/xlsx-files/lubrication-concat/lubeConcatener.py
+# goal: migrate an spreadsheet data from one order to another
+# lic: an open crap for anyone to use :)
+# gracias
+
 import openpyxl
 import os
 import math
@@ -8,14 +14,14 @@ print('-\n---\n-----\n-------\n-----\n---\n-')
 print('Hello concatener\n')
 
 # nombramientos
-dataFileName = 'lubeDataFile.xlsx'
+dataFileName = 'MNN-PLN-003 REV001 PLAN DE MANTENIMIENTO PREVENTIVO DE LUBRICACIÓN.xlsx'
 inputSheetName = 'PREVENTIVO_LUBRICACIÓN'
 outSheetName = 'AMxEQ'
 outFileName = 'out-lubeDataFile.xlsx'
 
 # declaración de filas
 inputSheetBeginRow = 14
-inputSheetEndRow = 24
+inputSheetEndRow = 207
 outSheetBeginRow = 4
 
 # traer data al workspace
@@ -54,11 +60,11 @@ for row in range(inputSheetBeginRow,inputSheetEndRow + 1):
     freqDias = freqSemanas * 7
     hardcodedList = ['Media','Lubricacion','Sistemática','Flotante','Tiempo']
     holgura = 0;
-    if freqDias <= 20:
+    if freqDias <= 60:
         holgura = math.ceil(0.2*freqDias)
-    elif freqDias <= 60:
-        holgura = math.ceil(0.15*freqDias)
     elif freqDias <= 120:
+        holgura = math.ceil(0.15*freqDias)
+    else:
         holgura = math.ceil(0.10*freqDias)
     # writing at outSheet
     outRow = row - 10;
