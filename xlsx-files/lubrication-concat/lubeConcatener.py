@@ -14,14 +14,14 @@ print('-\n---\n-----\n-------\n-----\n---\n-')
 print('Hello concatener\n')
 
 # nombramientos
-dataFileName = 'MNN-PLN-003 REV001 PLAN DE MANTENIMIENTO PREVENTIVO DE LUBRICACIÓN.xlsx'
+dataFileName = 'lubeDataFile.xlsx' #'MNN-PLN-003 REV001 PLAN DE MANTENIMIENTO PREVENTIVO DE LUBRICACIÓN.xlsx'
 inputSheetName = 'PREVENTIVO_LUBRICACIÓN'
 outSheetName = 'AMxEQ'
 outFileName = 'out-lubeDataFile.xlsx'
 
 # declaración de filas
-inputSheetBeginRow = 14
-inputSheetEndRow = 207
+inputSheetBeginRow = 465
+inputSheetEndRow = 499
 outSheetBeginRow = 4
 
 # traer data al workspace
@@ -55,7 +55,7 @@ for row in range(inputSheetBeginRow,inputSheetEndRow + 1):
     # Puntos: {numPuntos}
     Herramienta: {tipoHta}
     """
-    nombreEquipo = f'{equipo} : {posicion} ({sistema}) (BOPP)'
+    nombreEquipo = f'{equipo} : {posicion} ({sistema}) (CRT M-ATLAS))'
     reqOper = 'En Operación' if estadoMaq == 'FUNCIONANDO' else 'Parado por Mantenimiento'
     freqDias = freqSemanas * 7
     hardcodedList = ['Media','Lubricacion','Sistemática','Flotante','Tiempo']

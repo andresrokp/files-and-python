@@ -42,7 +42,7 @@ for row in range(beginRow,endRow + 1):
     # output workbook writing
     outSheet['G6'] = otNumber
     outSheet['R6'] = otSolNum
-    outSheet['G7'] = "IVÁN DE ALBA" if otEng == 'MECANICA' else 'JORGE MOLINA'
+    outSheet['G7'] = "DAVID BOLIVAR" if otEng == 'MECANICA' else 'JORGE MOLINA'
     outSheet['H10'] = otDate
     outSheet['T10'] = otDate
     if otType == 'PREVENTIVO': outSheet['N14'] = 'x'
